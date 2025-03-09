@@ -43,7 +43,7 @@ class ExpressionCalculator {
 
     // Метод для вычисления y = (a + b) / (a - b)
     public double calculateExpression2(double a, double b) {
-        if (a == b) {
+        if (a == 0) {
             System.out.println("Ошибка: Деление на ноль");
             return Double.NaN; // Возвращаем NaN для обозначения нечислового результата
         }
