@@ -1,75 +1,104 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Dog dog = new Dog("мясо", "будка", "овчарка");
+        Cat cat = new Cat("корм", "дом", "белый");
+        Horse horse = new Horse("сено", "конюшня", "арабская");
 
-        // Создание объекта класса
-        ExpressionCalculator calc = new ExpressionCalculator();
-
-        // Ввод значений
-        System.out.print("Введите x: ");
-        double x = sc.nextDouble();
-        System.out.print("Введите a: ");
-        double a = sc.nextDouble();
-        System.out.print("Введите b: ");
-        double b = sc.nextDouble();
-
-        // Вычисление y = 3x + 5
-        double result1 = calc.calculateExpression1(x);
-        System.out.println("y = 3x + 5: " + result1);
-
-        // Вычисление y = (a + b) / (a - b)
-        double result2 = calc.calculateExpression2(a, b);
-        if (!Double.isNaN(result2)) {
-            System.out.println("y = (a + b) / (a - b): " + result2);
-        }
-
-        // Вычисление y = (a * x / b)!
-        double result3 = calc.calculateExpression3(a, x, b);
-        if (!Double.isNaN(result3)) {
-            System.out.println("y = (a * x / b)!: " + result3);
-        }
-
-        sc.close();
+        Veterinar veter = new Veterinar();
+        veter.treatAnimal(dog);
+        veter.treatAnimal(cat);
+        veter.treatAnimal(horse);
+        dog.makeNoise();
+        dog.eat();
+        dog.fetch();
+        cat.makeNoise();
+        cat.eat();
+        cat.scratch();
+        horse.makeNoise();
+        horse.eat();
+        horse.gallop();
     }
 }
-class ExpressionCalculator {
+class Animal {
+    public String food;
+    public String location;
 
-    // Метод для вычисления y = 3x + 5
-    public double calculateExpression1(double x) {
-        return 3 * x + 5;
+    public Animal(String food, String location) {
+        this.food = food;
+        this.location = location;
+    }
+    public void makeNoise() {
+        System.out.println("Животное издает звук");
+    }
+    public void eat() {
+        System.out.println("Животное ест " + food);
+    }
+    public void sleep() {
+        System.out.println("Животное спит");
+    }
+}
+class Dog extends Animal {
+    private String poroda;
+
+    public Dog(String food, String location, String poroda) {
+        super(food, location);
+        this.poroda = poroda;
+    }
+    @Override
+    public void makeNoise() {
+        System.out.println("Собака лает.");
+    }
+@Override
+    public void eat() {
+        System.out.println("Собака ест " + food);
     }
 
-    // Метод для вычисления y = (a + b) / (a - b)
-    public double calculateExpression2(double a, double b) {
-        if (a == 0) {
-            System.out.println("Ошибка: Деление на ноль");
-            return Double.NaN; // Возвращаем NaN для обозначения нечислового результата
-        }
-        return (a + b) / (a - b);
+    public void fetch() { System.out.println("Собака приносит мяч");}
+}
+class Cat extends Animal {
+    private String color;
+
+    public Cat(String food, String location, String color) {
+        super(food, location);
+        this.color = color;
+    }
+    @Override
+    public void makeNoise() {
+        System.out.println("Кошка мяукает");
+    }
+@Override
+    public void eat() {
+        System.out.println("Кошка ест " + food);
     }
 
-    // Метод для вычисления y = (a * x / b)!
-    public double calculateExpression3(double a, double x, double b) {
-        if (b == 0) {
-            System.out.println("Ошибка: Деление на ноль");
-            return Double.NaN; // Возвращаем NaN для обозначения нечислового результата
-        }
-        double value = (a * x) / b;
-        return factorial((int) value);
+    public void scratch() {
+        System.out.println("Кошка точит когти");
+    }
+}
+class Horse extends Animal {
+    private String poroda;
+
+    public Horse(String food, String location, String poroda) {
+        super(food, location);
+        this.poroda = poroda;
+    }
+    @Override
+    public void makeNoise() {
+        System.out.println("Лошадь ржет");
     }
 
-    // Метод для вычисления факториала
-    private double factorial(int n) {
-        if (n < 0) {
-            System.out.println("Ошибка: Факториал не определен для отрицательных чисел");
-            return Double.NaN; // Возвращаем NaN для обозначения нечислового результата
-        }
-        double result = 1;
-        for (int i = 1; i <= n; i++) {
-            result *= i;
-        }
-        return result;
+    @Override
+    public void eat() {
+        System.out.println("Лошадь ест " + food);
+    }
+
+    public void gallop() {
+        System.out.println("Лошадь галопирует");
+    }
+}
+class Veterinar {
+    public void treatAnimal(Animal animal) {
+        System.out.println("Еда животного: " + animal.food);
+        System.out.println("Местоположение животного: " + animal.location);
     }
 }
